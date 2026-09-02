@@ -198,27 +198,24 @@ section { padding: 72px 0; }
 }
 .nav-links a.mobile-cta::after { display: none; }
 
-/* 5) HERO */
+/* 5) HERO — foto de fundo em assets/img/hero-background.png, com um gradiente
+   escuro por cima (mais forte no topo e embaixo, mais leve no meio) para o
+   texto centralizado continuar legível em qualquer parte da foto. */
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: radial-gradient(circle at 80% 20%, #1c1c1c 0%, var(--preto) 55%);
+  background-color: var(--preto);
+  background-image:
+    linear-gradient(180deg, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.85) 100%),
+    url("assets/img/hero-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--branco);
   padding-top: 110px;
   overflow: hidden;
-}
-/* Padrão sutil de engrenagens em SVG, referência visual da logo */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23FFC000' stroke-width='1'%3E%3Cpath d='M12 15a3 3 0 100-6 3 3 0 000 6z'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z'/%3E%3C/svg%3E");
-  background-size: 120px 120px;
-  background-repeat: repeat;
-  pointer-events: none;
 }
 .hero .container {
   position: relative;
@@ -489,6 +486,39 @@ section { padding: 72px 0; }
 .contact-item strong { display: block; margin-bottom: 4px; }
 .contact-item a, .contact-item p { color: #cfcfcf; font-size: 0.95rem; }
 .contact-item a:hover { color: var(--dourado); }
+
+.contact-map {
+  margin-top: 28px;
+  border-radius: var(--raio);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.contact-map iframe { display: block; width: 100%; }
+.contact-map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--preto-suave);
+  padding: 14px;
+}
+.map-link {
+  flex: 1;
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,192,0,0.1);
+  border: 1px solid rgba(255,192,0,0.3);
+  color: var(--dourado);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.map-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+.map-link:hover { background: var(--dourado); color: var(--preto); }
 
 .hours-table {
   width: 100%;
