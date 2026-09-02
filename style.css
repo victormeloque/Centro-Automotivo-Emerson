@@ -1,0 +1,622 @@
+/* ==========================================================
+   CENTRO AUTOMOTIVO EMERSON — folha de estilos (style.css)
+   ========================================================== */
+/* ==========================================================
+   CENTRO AUTOMOTIVO EMERSON — folha de estilos
+   Organização: 1) Variáveis  2) Reset  3) Utilitários
+   4) Header/Nav  5) Hero  6) Sobre  7) Serviços  7.1) Pneus
+   8) Contato  9) Footer  10) Botão flutuante WhatsApp
+   11) Animações  12) Responsividade (mobile-first)
+   ========================================================== */
+
+/* 1) VARIÁVEIS — cores extraídas da logo oficial.
+   Para trocar a identidade visual, basta editar aqui. */
+:root {
+  --preto: #0a0a0a;
+  --preto-suave: #161616;
+  --dourado: #FFC000;
+  --dourado-escuro: #E0A800;
+  --branco: #ffffff;
+  --cinza-claro: #f5f5f5;
+  --cinza-texto: #4a4a4a;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --raio: 12px;
+  --fonte-titulo: 'Poppins', 'Segoe UI', sans-serif;
+  --fonte-texto: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* 2) RESET básico */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--fonte-texto);
+  color: var(--preto);
+  background: var(--branco);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+h1, h2, h3, h4 { font-family: var(--fonte-titulo); line-height: 1.2; }
+section { padding: 72px 0; }
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 3) UTILITÁRIOS */
+.eyebrow {
+  display: inline-block;
+  color: var(--dourado-escuro);
+  background: rgba(255, 192, 0, 0.12);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  margin-bottom: 14px;
+}
+.section-lead {
+  color: var(--cinza-texto);
+  max-width: 620px;
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+}
+.center { text-align: center; margin-left: auto; margin-right: auto; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--dourado);
+  color: var(--preto);
+  box-shadow: 0 8px 24px rgba(255, 192, 0, 0.35);
+}
+.btn-primary:hover { background: var(--dourado-escuro); }
+.btn-outline {
+  background: transparent;
+  border-color: var(--branco);
+  color: var(--branco);
+}
+.btn-outline:hover { background: var(--branco); color: var(--preto); }
+.btn-outline-dark {
+  background: transparent;
+  border-color: var(--preto);
+  color: var(--preto);
+}
+.btn-outline-dark:hover { background: var(--preto); color: var(--branco); }
+.btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* 4) HEADER / NAV */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 16px 0;
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,0));
+}
+.header.scrolled {
+  background: var(--preto);
+  padding: 10px 0;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+}
+.brand-logo {
+  height: 54px;
+  width: auto;
+}
+@media (min-width: 1025px) {
+  .brand-logo { height: 84px; }
+  /* logo maior deixa o header mais alto nessa faixa; compensa o espaço reservado no topo do Hero */
+  .hero { padding-top: 132px; }
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  color: var(--branco);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--dourado);
+  transition: width 0.25s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1100;
+}
+.nav-toggle span {
+  width: 26px;
+  height: 2px;
+  background: var(--branco);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* O CTA do WhatsApp dentro do menu mobile só aparece quando o menu está
+   aberto (evitamos "display:none" inline pois ele venceria a regra abaixo) */
+.mobile-cta { display: none; }
+
+/* 5) HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at 80% 20%, #1c1c1c 0%, var(--preto) 55%);
+  color: var(--branco);
+  padding-top: 110px;
+  overflow: hidden;
+}
+/* Padrão sutil de engrenagens em SVG, referência visual da logo */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23FFC000' stroke-width='1'%3E%3Cpath d='M12 15a3 3 0 100-6 3 3 0 000 6z'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.hero-content { max-width: 720px; }
+.hero-content .eyebrow { background: rgba(255,192,0,0.15); }
+.hero h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  margin-bottom: 18px;
+}
+.hero h1 span { color: var(--dourado); }
+.hero p {
+  color: #d8d8d8;
+  font-size: 1.1rem;
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stats div strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1.8rem;
+  color: var(--dourado);
+}
+.hero-stats div span {
+  font-size: 0.85rem;
+  color: #bdbdbd;
+}
+/* 6) SOBRE */
+.about { background: var(--branco); }
+.about .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.about-text .eyebrow { color: #b57e00; }
+/* EDITE AQUI: personalize o texto institucional conforme a história real da oficina */
+.about-text p {
+  color: var(--cinza-texto);
+  margin-bottom: 18px;
+}
+.about-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 28px;
+}
+.highlight-card {
+  background: var(--cinza-claro);
+  border-radius: var(--raio);
+  padding: 20px;
+  border-left: 4px solid var(--dourado);
+}
+.highlight-card strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.highlight-card span { color: var(--cinza-texto); font-size: 0.9rem; }
+
+.about-panel {
+  background: var(--preto);
+  border-radius: var(--raio);
+  padding: 40px;
+  color: var(--branco);
+  position: relative;
+  overflow: hidden;
+}
+.about-panel::before {
+  content: "";
+  position: absolute;
+  width: 220px; height: 220px;
+  background: var(--dourado);
+  opacity: 0.12;
+  border-radius: 50%;
+  top: -80px; right: -80px;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+}
+.about-stats div strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 2.2rem;
+  color: var(--dourado);
+}
+.about-stats div span { color: #cfcfcf; font-size: 0.88rem; }
+
+/* 7) SERVIÇOS */
+.services { background: var(--cinza-claro); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+@media (min-width: 1025px) {
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.service-card {
+  background: var(--branco);
+  border-radius: var(--raio);
+  padding: 32px 26px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+.service-icon {
+  width: 58px; height: 58px;
+  border-radius: 14px;
+  background: var(--preto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.service-icon svg { width: 30px; height: 30px; stroke: var(--dourado); }
+.service-card h3 { font-size: 1.15rem; }
+.service-card p { color: var(--cinza-texto); font-size: 0.92rem; flex-grow: 1; }
+.service-link {
+  color: var(--dourado-escuro);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.service-link svg { width: 16px; height: 16px; }
+
+/* 7.1) PNEUS — uma imagem dedicada por faixa de tela (assets/img/pneus-*.jpg), cada uma já
+   editada na proporção exata do breakpoint em que é usada. .tires trava essa proporção via
+   aspect-ratio, então o background-size:cover de .tires-photo nunca precisa cortar nada — a
+   foto sempre aparece completa (pneu + oficina). O texto fica sempre sobreposto por cima,
+   com um gradiente escuro atrás garantindo legibilidade em qualquer parte da foto. */
+.tires {
+  position: relative;
+  color: var(--branco);
+  background: var(--preto);
+  overflow: hidden;
+  aspect-ratio: 375 / 812;
+}
+.tires-photo {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image:
+    linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.4) 45%, rgba(10,10,10,0.78) 100%),
+    url("assets/img/pneus-mobile-375x812.jpg");
+}
+.tires .container {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.tires-content { padding: 40px 0; }
+.tires-content .eyebrow { background: rgba(255,192,0,0.15); }
+.tires-content p { color: #d8d8d8; margin-bottom: 28px; }
+.tires-content .tires-brands-title {
+  color: var(--dourado);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 32px 0 14px;
+}
+.tires-brands-img {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+@media (min-width: 481px) {
+  .tires { aspect-ratio: 750 / 1400; }
+  .tires-photo {
+    background-image:
+      linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.4) 45%, rgba(10,10,10,0.78) 100%),
+      url("assets/img/pneus-mobile-750x1400.jpg");
+  }
+}
+@media (min-width: 768px) {
+  .tires { aspect-ratio: 1024 / 768; }
+  .tires-photo {
+    background-image:
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.32) 45%, rgba(10,10,10,0.72) 100%),
+      url("assets/img/pneus-tablet-1024x768.jpg");
+  }
+}
+@media (min-width: 1025px) {
+  .tires { aspect-ratio: 1920 / 800; }
+  .tires-photo {
+    background-image:
+      linear-gradient(90deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.55) 32%, rgba(10,10,10,0.15) 52%, rgba(10,10,10,0) 66%),
+      url("assets/img/pneus-desktop-1920x800.jpg");
+  }
+  .tires-content { max-width: 600px; padding: 0; }
+}
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 8) CONTATO */
+.contact { background: var(--preto); color: var(--branco); }
+.contact .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+.contact-info .eyebrow { background: rgba(255,192,0,0.15); }
+.contact-list {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.contact-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.contact-item .icon {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(255,192,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-item .icon svg { width: 22px; height: 22px; stroke: var(--dourado); }
+.contact-item strong { display: block; margin-bottom: 4px; }
+.contact-item a, .contact-item p { color: #cfcfcf; font-size: 0.95rem; }
+.contact-item a:hover { color: var(--dourado); }
+
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-size: 0.95rem;
+}
+.hours-table td { padding: 6px 0; color: #cfcfcf; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.hours-table td:last-child { text-align: right; color: var(--branco); font-weight: 600; }
+
+.contact-cta {
+  background: var(--preto-suave);
+  border: 1px solid rgba(255,192,0,0.25);
+  border-radius: var(--raio);
+  padding: 40px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.contact-cta svg { width: 48px; height: 48px; stroke: var(--dourado); }
+.contact-cta h3 { font-size: 1.3rem; }
+.contact-cta p { color: #cfcfcf; max-width: 320px; }
+.contact-cta .btn-primary { font-size: 1.05rem; padding: 16px 34px; }
+
+/* 9) FOOTER */
+.footer {
+  background: #050505;
+  color: #ababab;
+  padding: 44px 0 20px;
+}
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand { display: flex; align-items: center; gap: 12px; max-width: 320px; }
+.footer-brand img { width: 42px; height: 42px; border-radius: 8px; border: 2px solid var(--dourado); }
+.footer-brand strong { color: var(--branco); font-family: var(--fonte-titulo); }
+.footer-brand p { font-size: 0.85rem; margin-top: 4px; }
+.footer-col strong {
+  display: block;
+  color: var(--branco);
+  margin-bottom: 12px;
+  font-family: var(--fonte-titulo);
+  font-size: 0.95rem;
+}
+.footer-col a, .footer-col p { display: block; font-size: 0.88rem; margin-bottom: 8px; color: #ababab; }
+.footer-col a:hover { color: var(--dourado); }
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--dourado);
+  font-weight: 600;
+}
+.footer-bottom {
+  padding-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+/* 10) BOTÃO FLUTUANTE WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+.whatsapp-float svg { width: 30px; height: 30px; fill: var(--branco); }
+.whatsapp-float::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  animation: pulse 2.2s infinite;
+  z-index: -1;
+}
+
+/* 11) ANIMAÇÕES */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* 12) RESPONSIVIDADE (mobile-first: ajustes para telas maiores já
+   assumidos acima com grid; aqui tratamos telas menores) */
+@media (max-width: 900px) {
+  .about .container { grid-template-columns: 1fr; }
+  .contact .container { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .nav-links, .header-actions .btn-primary { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.mobile-open {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    top: 0;
+    background: var(--preto);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding-top: 40px;
+  }
+  .nav-links.mobile-open a { font-size: 1.3rem; }
+  .nav-links.mobile-open .mobile-cta { display: inline-flex; }
+  section { padding: 56px 0; }
+  .about-highlights { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .contact-cta { padding: 32px 20px; }
+  .whatsapp-float { width: 54px; height: 54px; bottom: 16px; right: 16px; }
+}
