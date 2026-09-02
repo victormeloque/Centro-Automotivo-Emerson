@@ -187,8 +187,16 @@ section { padding: 72px 0; }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
 .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 /* O CTA do WhatsApp dentro do menu mobile só aparece quando o menu está
-   aberto (evitamos "display:none" inline pois ele venceria a regra abaixo) */
+   aberto (evitamos "display:none" inline pois ele venceria a regra abaixo).
+   .nav-links a define cor/padding para os links de navegação comuns — o CTA
+   precisa sobrescrever isso para manter a aparência padrão de botão (pílula
+   dourada, texto preto, sem sublinhado). */
 .mobile-cta { display: none; }
+.nav-links a.mobile-cta {
+  color: var(--preto);
+  padding: 14px 28px;
+}
+.nav-links a.mobile-cta::after { display: none; }
 
 /* 5) HERO */
 .hero {
@@ -611,6 +619,7 @@ section { padding: 72px 0; }
     padding-top: 40px;
   }
   .nav-links.mobile-open a { font-size: 1.3rem; }
+  .nav-links.mobile-open a.mobile-cta { font-size: 0.98rem; }
   .nav-links.mobile-open .mobile-cta { display: inline-flex; }
   section { padding: 56px 0; }
   .about-highlights { grid-template-columns: 1fr; }
